@@ -40,10 +40,16 @@ public class AutoBus {
         return this.cambio;
     }
     
-    public void bajerUsuario(String codigoUsuario){
+    public void bajarUsuario(String codigoUsuario){
         Usuario usuario = buscarUsuario(codigoUsuario);
         if (usuario != null){
             silla[puestoUsuario(codigoUsuario)-1] = null;
+            //silla[puestoUsuario(codigoUsuario)-1].setIsOcupado(false);
+        }
+        if (cantidadPasajeros() < this.silla.length ){
+           this.autoBusLleno = false;
+       }else{
+            this.autoBusLleno = true;
         }
     }
     
@@ -83,24 +89,62 @@ public class AutoBus {
                 +" puesto:"+s.getPuesto() + " ocupado:"+s.isIsOcupado());
             }
         }
-        
+        System.out.println(this.autoBusLleno);
         if (this.autoBusLleno){
             System.out.println("auto bus lleno");
+            
         }
     }
     
+    public int cantidadPasajeros(){
+        Silla s = new Silla();
+        int cantidad = 0;
+        for (int i = 0; i < silla.length; i++) {
+            s = silla[i];
+            if(s != null){
+                cantidad +=1;
+            }
+        }
+        return cantidad;
+    }
+    
+    public int puestoLibre(){
+        Silla s = new Silla();
+        int puesto = -1;
+        for (int i = 0; i < silla.length; i++) {
+            s = silla[i];
+            if(s == null){
+                puesto = i;
+                break;
+            }
+        }
+        return puesto;
+        
+    }
     
     public void subirUsuario(Usuario u){
        Silla s = new Silla();
-       if(silla.length-1 < this.puesto){
+       
+       if (cantidadPasajeros() == this.silla.length){
            this.autoBusLleno = true;
        }else{
-            s.setPuesto(this.puesto+1);
-            s.setUsuario(u);
-            s.setIsOcupado(true);
-            this.silla[this.puesto] = s;
-            this.puesto = this.puesto +1;
+           
+           if(puestoLibre() == -1){
+                s.setPuesto(this.puesto+1);
+                s.setUsuario(u);
+                s.setIsOcupado(true);
+                this.silla[this.puesto] = s;
+                this.puesto = this.puesto +1;
+           }else{
+                s.setPuesto(puestoLibre()+1);
+                s.setUsuario(u);
+                s.setIsOcupado(true);
+                this.silla[puestoLibre()] = s;
+                this.puesto = this.puesto +1;
+           }
+            
        }
+       
     } 
     
     

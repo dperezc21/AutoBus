@@ -18,12 +18,13 @@ public class main {
         Usuario u3 = new Usuario("dario","c","23");
         Usuario u4 = new Usuario("jorge","d","23");
         Usuario u5 = new Usuario("luisa","e","23");
+        Usuario u6 = new Usuario("luis","f","23");
         b.subirUsuario(u);
         b.subirUsuario(u2);
         b.subirUsuario(u3);
         b.subirUsuario(u4);
         b.subirUsuario(u5);
-         //b.subirUsuario(u5);
+        
          
         b.mostrarPasajeros();
         //System.out.println("despues de bajar al usuario");
@@ -31,9 +32,13 @@ public class main {
        // b.mostrarPasajeros();
         //b.subirUsuario(u2);
         //System.out.println("montar otra ves al pasajero");
-        //b.mostrarPasajeros();
-       
         
+        b.bajarUsuario("a");
+        b.subirUsuario(u6);
+
+        System.out.println("bajo un pasajero");
+        b.mostrarPasajeros();
+       
         
     }
     
